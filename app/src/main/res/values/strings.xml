@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Green News</string>
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="pub_date">Pub date</string>
+    <string name="no_internet_connection">No internet connection, please check your internet signal.</string>
+    <string name="no_news">No news articles found, please try again later. </string>
+    <string name="greenleaf">green_leaf_icon</string>
+    <string name="right_arrow">right arrow</string>
+</resources>
