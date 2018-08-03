@@ -5,6 +5,24 @@
     <string name="pub_date">Pub date</string>
     <string name="no_internet_connection">No internet connection, please check your internet signal.</string>
     <string name="no_news">No news articles found, please try again later. </string>
-    <string name="greenleaf">green_leaf_icon</string>
+    <string name="green_news">green news</string>
     <string name="right_arrow">right arrow</string>
+
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">Settings</string>
+
+    // setup labels for keyword search and most recent news preferences
+    <string name="settings_search_keyword_label">Search Keyword</string>
+    <string name="settings_search_keyword_key">search_keyword</string>
+    <string name="settings_search_keyword_default" translatable="false">economy</string>
+
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_relevance_value</string>
+
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
 </resources>

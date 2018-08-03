@@ -13,6 +13,14 @@ import java.util.List;
 
 public class NewsAdapter extends ArrayAdapter<News> {
 
+    // Create ViewHolder class to improve scrolling performance
+    static class ViewHolder {
+        TextView title;
+        TextView category;
+        TextView author;
+        TextView date;
+    }
+
     public NewsAdapter(@NonNull Context context, List<News> greenNews) {
         super(context, 0, greenNews);
     }
@@ -28,7 +36,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.news_list_item, parent, false);
         }
 
-        // setup ViewHolder
+        // setup ViewHolder to link corresponding fields to layout
         ViewHolder viewHolder = new ViewHolder();
         News currentNews = getItem(position);
 
@@ -43,13 +51,5 @@ public class NewsAdapter extends ArrayAdapter<News> {
         viewHolder.date.setText(currentNews.getNewsPubDate());
 
         return listItemView;
-    }
-
-    // Create ViewHolder class to improve scrolling performance
-    static class ViewHolder {
-        TextView title;
-        TextView category;
-        TextView author;
-        TextView date;
     }
 }

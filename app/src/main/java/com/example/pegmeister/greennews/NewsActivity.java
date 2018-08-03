@@ -5,12 +5,16 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,7 +30,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
     /**
      * URL for Pollution news from the Guardian news database
      */
-    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=%22pollution%22&show-tags=contributor&order-by=relevance&api-key=bae3f33c-1167-49fd-92ff-ec2c959122cc";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search";
     /**
      * Constant value for news loader ID
      */
@@ -92,7 +96,33 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+
+        // onCreateLoader instantiates and returns a new Loader for the given ID
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves the keyword search and orderBy value
+        String keyword = sharedPrefs.getString(
+                getString(R.string.settings_search_keyword_key),
+                getString(R.string.settings_search_keyword_default));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
+        // parse breaks apart the URI string that's passed into its parameter
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // Append query parameter and its value
+        uriBuilder.appendQueryParameter("page-size", "15");
+        uriBuilder.appendQueryParameter("q", keyword);
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("api-key", "bae3f33c-1167-49fd-92ff-ec2c959122cc");
+
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -111,7 +141,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
         // This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
             newsAdapter.addAll(news);
-
         }
     }
 
@@ -120,6 +149,26 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<L
         // Loader reset, so we can clear out our existing data.
         newsAdapter.clear();
         Log.v("Loader Reset", "confirmed");
+    }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options menu specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    // This method is called whenever on item in the options menu is selected.
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

@@ -156,7 +156,7 @@ public class QueryUtils {
                 JSONObject currentNews = currentNewsArray.getJSONObject(i);
 
                 String title = currentNews.getString("webTitle");
-                String category = currentNews.getString("pillarName");
+                String category = currentNews.getString("sectionName");
                 String url = currentNews.getString("webUrl");
                 String pubDate = formatDate(currentNews.getString("webPublicationDate"));
 

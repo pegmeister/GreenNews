@@ -15,19 +15,12 @@
 
         <ImageView
             android:id="@+id/green_news_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="center"
-            android:background="@drawable/greenleaf1"
-            android:contentDescription="@string/greenleaf"
+            android:background="@drawable/green_news"
+            android:contentDescription="@string/green_news"
             android:textColor="@android:color/white" />
-
-        <TextView
-            android:id="@+id/category"
-            style="@style/CategoryStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="category" />
 
     </LinearLayout>
 
@@ -53,6 +46,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@string/author" />
+
+        <TextView
+            android:id="@+id/category"
+            style="@style/CategoryStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="category" />
 
         <TextView
             android:id="@+id/pub_date"
